@@ -14,8 +14,16 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.xample.androidautopart.MyAdapter;
 import com.xample.androidautopart.R;
+
+import org.json.JSONArray;
 
 public class ProductFragment extends Fragment {
 
@@ -23,6 +31,8 @@ public class ProductFragment extends Fragment {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
+    private View contx;
 
     private String[] listeRandom = {"ALlo", "Patate", "Test", "Un autre example"
             , "Quebec", "Ontario", "Yukon", "TNO", "Vancouver", "Toronto",
@@ -49,7 +59,35 @@ public class ProductFragment extends Fragment {
         mAdapter = new MyAdapter(listeRandom);
         recyclerView.setAdapter(mAdapter);
 
-
+        contx = root;
         return root;
+    }
+
+    protected void doRequest() {
+        final TextView textView = (TextView) contx.findViewById(R.id.text);
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this.getContext());
+
+        String url = "https://7f0f6f6f.ngrok.io/suppliers";
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        textView.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        textView.setText("That didn't work!");
+                    }
+                });
+
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonArrayRequest);
     }
 }
