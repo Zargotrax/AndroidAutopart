@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.xample.androidautopart.MyAdapter;
+import com.xample.androidautopart.ProductAdapter;
 import com.xample.androidautopart.R;
 
 import org.json.JSONArray;
@@ -56,33 +53,36 @@ public class ProductFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(listeRandom);
+        mAdapter = new ProductAdapter(listeRandom);
         recyclerView.setAdapter(mAdapter);
+
+
+        doRequest();
 
         contx = root;
         return root;
+
+
     }
 
     protected void doRequest() {
-        final TextView textView = (TextView) contx.findViewById(R.id.text);
-
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
-        String url = "https://7f0f6f6f.ngrok.io/suppliers";
+        String url = "https://f6eb04bb.ngrok.io//suppliers";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
                     @Override
                     public void onResponse(JSONArray response) {
-                        textView.setText("Response: " + response.toString());
+                        ProductViewModel.GetList(response);
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        textView.setText("That didn't work!");
+                        ProductViewModel.GetList(null);
                     }
                 });
 
