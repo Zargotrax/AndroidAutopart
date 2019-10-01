@@ -21,8 +21,10 @@ import com.xample.androidautopart.ProductAdapter;
 import com.xample.androidautopart.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProductFragment extends Fragment {
@@ -40,20 +42,14 @@ public class ProductFragment extends Fragment {
                 ViewModelProviders.of(this).get(ProductViewModel.class);
         View root = inflater.inflate(R.layout.fragment_gallery, container, false);
 
+        doRequest();
 
-        recyclerView = (RecyclerView) root.findViewById(R.id.my_recycler_view);
-
-        // use this setting to improve performance if you know that changes
-        // in content do not change the layout size of the RecyclerView
+        recyclerView = root.findViewById(R.id.my_recycler_view);
         recyclerView.setHasFixedSize(true);
-
-        // use a linear layout manager
         layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
-
-        // specify an adapter (see also next example)
-        mAdapter = new ProductAdapter(/*new List<JSONObject>()*/);
-        recyclerView.setAdapter(mAdapter);
+        //mAdapter = new ProductAdapter(ProductViewModel.GetList());
+        //recyclerView.setAdapter(mAdapter);
 
         contx = root;
         return root;
@@ -72,13 +68,24 @@ public class ProductFragment extends Fragment {
 
                     @Override
                     public void onResponse(JSONArray response) {
-                        ProductViewModel.GetList(response);
+                        //Create a list of JSONObject and the go through the response to add them to the list, then pass it to the adapter
+                        //ProductViewModel.GetList(response);
+                        List<JSONObject> listJson = new ArrayList<JSONObject>();
+                        try{
+                            for(int i = 0; i < response.length(); i++){
+                                JSONObject res = response.getJSONObject(i);
+                                listJson.add(res);
+                            }
+                        } catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                        mAdapter = new ProductAdapter(listJson);
+                        recyclerView.setAdapter(mAdapter);
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        ProductViewModel.GetList(null);
+                        error.printStackTrace();
                     }
                 });
 

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ProductAdapter(List<JSONObject> myDataset) {
+    public ProductAdapter(@NonNull List<JSONObject> myDataset) {
         dataset = myDataset;
     }
 
@@ -53,10 +54,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.productName.setText("Name");
-        holder.productCode.setText("Code");
-        holder.productPrice.setText("Prix");
+        for(int i = 0; i < dataset.size(); i++){
+            try{
+                holder.productName.setText((dataset.get(i)).getString("title"));
+                holder.productCode.setText((dataset.get(i)).getString("code"));
+                holder.productPrice.setText((dataset.get(i)).getString("unitPrice"));
 
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)

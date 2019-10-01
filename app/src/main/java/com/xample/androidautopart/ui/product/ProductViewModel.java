@@ -17,7 +17,7 @@ public class ProductViewModel extends ViewModel {
         mText.setValue("This is gallery fragment");
     }
 
-    public static JSONArray GetList(JSONArray response ){
+    public static JSONArray GetList(JSONArray response){
         try{
             for(int i = 0; i < response.length(); i++){
                 JSONObject res = response.getJSONObject(i);
