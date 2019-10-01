@@ -1,29 +1,39 @@
 package com.xample.androidautopart;
 
+import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-    private CardView[] dataset;
+import org.json.JSONObject;
 
-    // Provide a reference to the views for each data item
-    // Complex data items may need more than one view per item, and
-    // you provide access to all the views for a data item in a view holder
+import java.util.List;
+
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
+    private List<JSONObject> dataset;
+
+
     public static class ProductViewHolder extends RecyclerView.ViewHolder {
-        // each data item is just a string in this case
-        public TextView textView;
-        public ProductViewHolder(TextView v) {
+        protected static TextView productName;
+        protected static TextView productCode;
+        protected static TextView productPrice;
+
+
+        public ProductViewHolder(@NonNull View v) {
             super(v);
-            textView = v;
+
+            productName = v.findViewById(R.id.txtView_Name);
+            productCode = v.findViewById(R.id.txtView_Code);
+            productPrice = v.findViewById(R.id.txtView_UnitPrice);
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ProductAdapter(CardView[] myDataset) {
+    public ProductAdapter(List<JSONObject> myDataset) {
         dataset = myDataset;
     }
 
@@ -31,11 +41,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public ProductAdapter.ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recyclerview_row, parent, false);
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View view = inflater.inflate(R.layout.product_card, parent, false);
 
-        MyViewHolder vh = new MyViewHolder(v);
-        return vh;
+        return new ProductViewHolder(view);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
@@ -43,12 +53,15 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        
+        holder.productName.setText("Name");
+        holder.productCode.setText("Code");
+        holder.productPrice.setText("Prix");
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return dataset.length;
+        return 3;//dataset.size();
     }
 }

@@ -21,6 +21,9 @@ import com.xample.androidautopart.ProductAdapter;
 import com.xample.androidautopart.R;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class ProductFragment extends Fragment {
 
@@ -30,10 +33,6 @@ public class ProductFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
 
     private View contx;
-
-    private String[] listeRandom = {"ALlo", "Patate", "Test", "Un autre example"
-            , "Quebec", "Ontario", "Yukon", "TNO", "Vancouver", "Toronto",
-            "Montréal", "Test" };
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -53,11 +52,8 @@ public class ProductFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new ProductAdapter(listeRandom);
+        mAdapter = new ProductAdapter(/*new List<JSONObject>()*/);
         recyclerView.setAdapter(mAdapter);
-
-
-        doRequest();
 
         contx = root;
         return root;

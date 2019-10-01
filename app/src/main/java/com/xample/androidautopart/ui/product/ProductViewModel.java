@@ -15,11 +15,9 @@ public class ProductViewModel extends ViewModel {
     public ProductViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is gallery fragment");
-
-
     }
 
-    public static void GetList(JSONArray response ){
+    public static JSONArray GetList(JSONArray response ){
         try{
             for(int i = 0; i < response.length(); i++){
                 JSONObject res = response.getJSONObject(i);
@@ -27,10 +25,11 @@ public class ProductViewModel extends ViewModel {
                 String modelNo = res.getString("modelNo");
                 String code = res.getString("code");
             }
+            return response;
         } catch (JSONException e){
             e.printStackTrace();
+            return null;
         }
-
     }
 
     public LiveData<String> getText() {
