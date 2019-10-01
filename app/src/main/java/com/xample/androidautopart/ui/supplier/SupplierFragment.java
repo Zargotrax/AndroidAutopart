@@ -16,15 +16,15 @@ import com.xample.androidautopart.R;
 
 public class SupplierFragment extends Fragment {
 
-    private SupplierViewModel slideshowViewModel;
+    private SupplierViewModel supplierViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
+        supplierViewModel =
                 ViewModelProviders.of(this).get(SupplierViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+        View root = inflater.inflate(R.layout.fragment_suppliers, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(this, new Observer<String>() {
+        supplierViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

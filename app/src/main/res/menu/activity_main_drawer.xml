@@ -9,10 +9,10 @@
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_product"
-            android:title="@string/menu_supplier" />
+            android:title="@string/menu_product" />
         <item
             android:id="@+id/nav_supplier"
-            android:title="@string/menu_product" />
+            android:title="@string/menu_supplier" />
     </group>
 
 </menu>

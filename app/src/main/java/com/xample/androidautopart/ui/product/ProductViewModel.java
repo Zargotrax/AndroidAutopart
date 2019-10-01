@@ -1,7 +1,5 @@
 package com.xample.androidautopart.ui.product;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.xample.androidautopart.ProductAdapter;
@@ -15,13 +13,11 @@ import java.util.List;
 
 public class ProductViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
 
     public static ProductAdapter adapter;
 
     public ProductViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        //This is the contructor tb added
     }
 
     public static void GetList(JSONArray response){
@@ -37,10 +33,5 @@ public class ProductViewModel extends ViewModel {
         adapter = new ProductAdapter(listJson);
         adapter.notifyDataSetChanged();
     }
-
-    public LiveData<String> getText() {
-        return mText;
-    }
-
 
 }
