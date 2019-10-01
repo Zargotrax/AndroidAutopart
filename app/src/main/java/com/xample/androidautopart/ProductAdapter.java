@@ -59,8 +59,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.productName.setText((dataset.get(i)).getString("title"));
                 holder.productCode.setText((dataset.get(i)).getString("code"));
                 holder.productPrice.setText((dataset.get(i)).getString("unitPrice"));
+//                holder.productName.setText("Name");
+//                holder.productCode.setText("Code");
+//                holder.productPrice.setText("Price");
 
-            } catch (JSONException e){
+
+            } catch (Exception e){
                 e.printStackTrace();
             }
         }
