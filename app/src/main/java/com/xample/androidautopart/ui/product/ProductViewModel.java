@@ -21,16 +21,26 @@ public class ProductViewModel extends ViewModel {
     }
 
     public static void GetList(JSONArray response){
-        List<JSONObject> listJson = new ArrayList<JSONObject>();
+        List<Product> listProduct = new ArrayList<>();
         try{
             for(int i = 0; i < response.length(); i++){
                 JSONObject res = response.getJSONObject(i);
-                listJson.add(res);
+                Product p = new Product();
+
+                p.id = res.getString("id");
+                p.title = res.getString("title");
+                p.modelNo = res.getString("modelNo");
+                p.code = res.getString("code");
+                p.unitPrice = res.getString("unitPrice");
+                p.inventory = res.getString("inventory");
+                p.supplierID = res.getString("supplierId");
+
+                listProduct.add(p);
             }
         } catch (JSONException e){
             e.printStackTrace();
         }
-        adapter = new ProductAdapter(listJson);
+        adapter = new ProductAdapter(listProduct);
         adapter.notifyDataSetChanged();
     }
 
