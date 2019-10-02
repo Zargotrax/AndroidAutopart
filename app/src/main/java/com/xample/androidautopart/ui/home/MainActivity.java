@@ -1,4 +1,4 @@
-package com.xample.androidautopart;
+package com.xample.androidautopart.ui.home;
 
 import android.os.Bundle;
 
@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.xample.androidautopart.R;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 

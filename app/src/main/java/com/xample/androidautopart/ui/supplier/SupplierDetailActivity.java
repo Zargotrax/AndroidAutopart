@@ -1,4 +1,4 @@
-package com.xample.androidautopart;
+package com.xample.androidautopart.ui.supplier;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.xample.androidautopart.R;
 import com.xample.androidautopart.ui.supplier.Supplier;
 
 public class SupplierDetailActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class SupplierDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Supplier s = (Supplier) intent.getSerializableExtra("supplier");
 
-        id = super.findViewById(R.id.txtView_id);
+        id = super.findViewById(R.id.txtView_idsupplier);
         name = super.findViewById(R.id.txtView_name);
         adl1 = super.findViewById(R.id.txtView_ad1);
         adl2 = super.findViewById(R.id.txtView_ad2);

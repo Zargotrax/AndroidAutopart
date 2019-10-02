@@ -1,4 +1,4 @@
-package com.xample.androidautopart;
+package com.xample.androidautopart.ui.product;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xample.androidautopart.ui.product.Product;
-import com.xample.androidautopart.ui.product.ProductFragment;
+import com.xample.androidautopart.R;
 
 import java.util.List;
 
@@ -40,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     @Override
-    public ProductAdapter.ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.product_card, parent, false);

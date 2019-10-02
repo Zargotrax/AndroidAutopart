@@ -2,8 +2,6 @@ package com.xample.androidautopart.ui.product;
 
 import androidx.lifecycle.ViewModel;
 
-import com.xample.androidautopart.ProductAdapter;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
