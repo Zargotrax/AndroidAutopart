@@ -19,7 +19,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     private List<Product> dataset;
     protected Context context;
 
-    public static final String ID = "com.example.myfirstapp.ID";
 
     public class ProductViewHolder extends RecyclerView.ViewHolder {
         protected TextView productName;
@@ -58,7 +57,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             //JSONObject item = dataset.get(itemPosition);
             Product p = new Product();
             Intent intent = new Intent(ProductFragment.activity, ProductDetailActivity.class);
-            intent.putExtra(ID, p);
+            intent.putExtra("produit", p);
             context.startActivity(intent);
         }
     };
