@@ -34,45 +34,40 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             context = v.getContext();
         }
     }
+
     public ProductAdapter(@NonNull List<Product> myDataset) {
-        dataset = myDataset;
+        this.dataset = myDataset;
     }
 
     @Override
     public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.product_card, parent, false);
+        final ProductViewHolder holder = new ProductViewHolder(view);
 
-        view.setOnClickListener(cardOnClickListener);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View view) {
+                int itemPosition = ProductFragment.recyclerView.getChildLayoutPosition(view);
+                //JSONObject item = dataset.get(itemPosition);
+                Product p = dataset.get(itemPosition);
+                Intent intent = new Intent(ProductFragment.activity, ProductDetailActivity.class);
+                intent.putExtra("produit", p);
+                context.startActivity(intent);
+            }
+        });
         return new ProductViewHolder(view);
     }
 
-    public final View.OnClickListener cardOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int itemPosition = ProductFragment.recyclerView.getChildLayoutPosition(view);
-            //JSONObject item = dataset.get(itemPosition);
-            Product p = new Product();
-            Intent intent = new Intent(ProductFragment.activity, ProductDetailActivity.class);
-            intent.putExtra("produit", p);
-            context.startActivity(intent);
-        }
-    };
 
     @Override
     public void onBindViewHolder(ProductViewHolder holder, int position) {
-        for(int i = 0; i < dataset.size(); i++){
-            try{
+        Product produit = dataset.get(position);
 
-                holder.productName.setText((dataset.get(i)).title);
-                holder.productCode.setText((dataset.get(i)).code);
-                holder.productPrice.setText((dataset.get(i)).unitPrice);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
+        holder.productName.setText(produit.title);
+        holder.productCode.setText(produit.code);
+        holder.productPrice.setText(produit.unitPrice);
     }
 
     @Override

@@ -12,15 +12,18 @@ import java.util.List;
 public class ProductViewModel extends ViewModel {
 
 
-    public static ProductAdapter adapter;
+    public ProductAdapter adapter;
+    public List<Product> listProduct;
 
     public ProductViewModel() {
-        //This is the contructor tb added
+        listProduct = new ArrayList<>();
+        adapter = new ProductAdapter(listProduct);
+
     }
 
-    public static void GetList(JSONArray response){
-        List<Product> listProduct = new ArrayList<>();
+    public void GetList(JSONArray response){
         try{
+            listProduct.clear();
             for(int i = 0; i < response.length(); i++){
                 JSONObject res = response.getJSONObject(i);
                 Product p = new Product();
@@ -34,12 +37,10 @@ public class ProductViewModel extends ViewModel {
                 p.supplierID = res.getString("supplierId");
 
                 listProduct.add(p);
+                adapter.notifyDataSetChanged();
             }
         } catch (JSONException e){
             e.printStackTrace();
         }
-        adapter = new ProductAdapter(listProduct);
-        adapter.notifyDataSetChanged();
     }
-
 }

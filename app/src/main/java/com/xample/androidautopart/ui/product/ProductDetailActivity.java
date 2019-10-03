@@ -1,10 +1,10 @@
 package com.xample.androidautopart.ui.product;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.xample.androidautopart.R;
 
@@ -26,7 +26,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Product p = (Product) intent.getSerializableExtra("produit");
 
-        id = super.findViewById(R.id.txtView_idsupplier);
+        id = super.findViewById(R.id.txtView_idproduct);
         title = super.findViewById(R.id.txtView_title);
         modelNo = super.findViewById(R.id.txtView_modelNB);
         code = super.findViewById(R.id.txtView_code);
