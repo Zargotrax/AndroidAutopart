@@ -1,9 +1,11 @@
 package com.xample.androidautopart.ui.product;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -28,10 +30,11 @@ public class ProductFragment extends Fragment {
     public static RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     public static FragmentActivity activity;
+    public View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         productViewModel = ViewModelProviders.of(this).get(ProductViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_product, container, false);
+        root = inflater.inflate(R.layout.fragment_product, container, false);
 
         activity = getActivity();
         doRequest();
@@ -48,7 +51,7 @@ public class ProductFragment extends Fragment {
     protected void doRequest() {
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
-        String url = "https://f6eb04bb.ngrok.io//suppliers";
+        String url = "https://0bb1c3d7.ngrok.io/products";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -56,11 +59,18 @@ public class ProductFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
                         ProductViewModel.GetList(response);
+
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         error.printStackTrace();
+                        Context context = root.getContext();
+                        CharSequence text = error.toString();
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Toast toast = Toast.makeText(context, text, duration);
+                        toast.show();
                     }
                 });
         queue.add(jsonArrayRequest);

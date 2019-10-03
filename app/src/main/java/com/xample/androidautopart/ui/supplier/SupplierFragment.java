@@ -53,7 +53,7 @@ public class SupplierFragment extends Fragment {
     protected void doRequest() {
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
-        String url = "https://f6eb04bb.ngrok.io//suppliers";
+        String url = "https://f6eb04bb.ngrok.io/suppliers";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
