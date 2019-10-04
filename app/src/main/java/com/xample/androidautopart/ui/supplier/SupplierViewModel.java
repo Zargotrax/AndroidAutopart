@@ -1,7 +1,5 @@
 package com.xample.androidautopart.ui.supplier;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import org.json.JSONArray;
@@ -13,14 +11,17 @@ import java.util.List;
 
 public class SupplierViewModel extends ViewModel {
 
-    public static SupplierAdapter adapter;
+    public SupplierAdapter adapter;
+    public List<Supplier> listSupplier;
 
     public SupplierViewModel() {
+        listSupplier = new ArrayList<>();
+        adapter = new SupplierAdapter(listSupplier);
     }
 
-    public static void GetList(JSONArray response){
-        List<Supplier> listSupplier = new ArrayList<>();
+    public void GetList(JSONArray response){
         try{
+            listSupplier.clear();
             for(int i = 0; i < response.length(); i++){
                 JSONObject res = response.getJSONObject(i);
                 Supplier s= new Supplier();
@@ -36,12 +37,10 @@ public class SupplierViewModel extends ViewModel {
                 s.contact = res.getString("contact");
 
                 listSupplier.add(s);
+                adapter.notifyDataSetChanged();
             }
         } catch (JSONException e){
             e.printStackTrace();
         }
-        adapter = new SupplierAdapter(listSupplier);
-        adapter.notifyDataSetChanged();
     }
-
 }

@@ -38,7 +38,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         title.setText(p.title);
         modelNo.setText(p.modelNo);
         code.setText(p.code);
-        unitPrice.setText(p.unitPrice);
+        unitPrice.setText(p.unitPrice + "$");
         inventory.setText(p.inventory);
         supplierId.setText(p.supplierID);
 

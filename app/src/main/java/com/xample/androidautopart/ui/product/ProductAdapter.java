@@ -28,9 +28,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(@NonNull View v) {
             super(v);
 
-            productName = v.findViewById(R.id.txtView_Name);
-            productCode = v.findViewById(R.id.txtView_Code);
-            productPrice = v.findViewById(R.id.txtView_UnitPrice);
+            productName = v.findViewById(R.id.txtView_Product_Name);
+            productCode = v.findViewById(R.id.txtView_Product_Code);
+            productPrice = v.findViewById(R.id.txtView_Product_UnitPrice);
             context = v.getContext();
         }
     }
@@ -67,7 +67,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         holder.productName.setText(produit.title);
         holder.productCode.setText(produit.code);
-        holder.productPrice.setText(produit.unitPrice);
+        holder.productPrice.setText(produit.unitPrice + "$");
     }
 
     @Override

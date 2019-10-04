@@ -11,9 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.xample.androidautopart.R;
-import com.xample.androidautopart.ui.supplier.Supplier;
-import com.xample.androidautopart.ui.supplier.SupplierDetailActivity;
-import com.xample.androidautopart.ui.supplier.SupplierFragment;
 
 import java.util.List;
 
@@ -31,9 +28,9 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Suppli
         public SupplierViewHolder(@NonNull View v) {
             super(v);
 
-            supplierName = v.findViewById(R.id.txtView_name);
-            supplierTelephone = v.findViewById(R.id.txtView_telephone);
-            supplierContact = v.findViewById(R.id.txtView_contact);
+            supplierName = v.findViewById(R.id.txtView_Supplier_Name);
+            supplierTelephone = v.findViewById(R.id.txtView_Supplier_Phone);
+            supplierContact = v.findViewById(R.id.txtView_Supplier_Contact);
             context = v.getContext();
         }
     }
@@ -43,39 +40,34 @@ public class SupplierAdapter extends RecyclerView.Adapter<SupplierAdapter.Suppli
 
     @Override
     public SupplierViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.supplier_card, parent, false);
+        final SupplierViewHolder holder = new SupplierViewHolder(view);
 
-        view.setOnClickListener(cardOnClickListener);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                int itemPosition = SupplierFragment.recyclerView.getChildLayoutPosition(view);
+                //JSONObject item = dataset.get(itemPosition);
+                Supplier s = dataset.get(itemPosition);
+                Intent intent = new Intent(SupplierFragment.activity, SupplierDetailActivity.class);
+                intent.putExtra("supplier", s);
+                context.startActivity(intent);
+            }
+        });
 
         return new SupplierViewHolder(view);
     }
 
-    public final View.OnClickListener cardOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            int itemPosition = SupplierFragment.recyclerView.getChildLayoutPosition(view);
-            //JSONObject item = dataset.get(itemPosition);
-            Supplier s = new Supplier();
-            Intent intent = new Intent(SupplierFragment.activity, SupplierDetailActivity.class);
-            intent.putExtra("supplier", s);
-            context.startActivity(intent);
-        }
-    };
 
     @Override
     public void onBindViewHolder(SupplierViewHolder holder, int position) {
-        for(int i = 0; i < dataset.size(); i++){
-            try{
+        Supplier supplier = dataset.get(position);
 
-                holder.supplierName.setText((dataset.get(i)).name);
-                holder.supplierTelephone.setText((dataset.get(i)).telephone);
-                holder.supplierContact.setText((dataset.get(i)).contact);
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
+            holder.supplierName.setText(supplier.name);
+            holder.supplierTelephone.setText(supplier.telephone);
+            holder.supplierContact.setText(supplier.contact);
     }
 
     @Override

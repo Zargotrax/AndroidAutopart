@@ -44,7 +44,7 @@ public class ProductFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this.getContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter( productViewModel.adapter);
+        recyclerView.setAdapter(productViewModel.adapter);
 
         return root;
     }
@@ -53,7 +53,7 @@ public class ProductFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(this.getContext());
 
         String url = "https://0bb1c3d7.ngrok.io/products";
-        productViewModel.GetList(testDB());
+
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
@@ -65,6 +65,8 @@ public class ProductFragment extends Fragment {
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        //If the connection fail use the test DB
+                        productViewModel.GetList(testDB());
                         error.printStackTrace();
                         Context context = root.getContext();
                         CharSequence text = error.toString();
@@ -82,18 +84,6 @@ public class ProductFragment extends Fragment {
         JSONArray jsonArray;
 
         try {
-//            InputStream is = root.getContext().getAssets().open("com/xample/androidautopart/ui/db.json");
-////
-////            int size = is.available();
-////
-////            byte[] buffer = new byte[size];
-////
-////            is.read(buffer);
-////
-////            is.close();
-////
-////            json = new String(buffer, "UTF-8");
-
             json = "{\n" +
                     "  \"products\": [\n" +
                     "    {\n" +
